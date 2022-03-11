@@ -9,8 +9,10 @@ typedef struct {
     int capacity;
 } Stack;
 
-void initStack(Stack *s, int capacity) 
+
+Stack *initStack(int capacity) 
 {
+    Stack *s = (Stack *) malloc(sizeof(Stack));
     s->items = (TYPE *) malloc(capacity * sizeof(TYPE));
     s->top = 0;
     s->capacity = capacity;
@@ -24,11 +26,6 @@ void push(TYPE item, Stack *s)
 void pop(Stack *s)
 {
     s->top--;
-}
-
-void freePopped(Stack *s)
-{
-    free(s->items[s->top--]);
 }
 
 TYPE peek(Stack *s)
@@ -53,6 +50,13 @@ int isFull(Stack *s)
     return (s->top < s->capacity) ? 0:1; 
 }
 
+void destructStack(Stack *s)
+{
+    free(s->items);
+    free(s);
+}
+
+// Extra functions
 int length(Stack *s)
 {
     return s->top;
@@ -68,7 +72,7 @@ void showStack(Stack *s)
     printf(" ]\n");
 }
 
-void destructStack(Stack *s)
+void freePopped(Stack *s)
 {
-    free(s->items);
+    free(s->items[s->top--]);
 }

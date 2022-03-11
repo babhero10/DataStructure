@@ -6,7 +6,7 @@ typedef struct {
 
 } Stack;
 
-void initStack(Stack *, int);
+Stack *initStack(int);
 void destructStack(Stack *);
 void push(TYPE, Stack *);
 void pop(Stack *);

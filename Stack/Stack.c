@@ -1,12 +1,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define TYPE int
+#define TYPE int // TYPE to change the stack datatype anytime
 
 typedef struct {
     int top;
     TYPE *items;
-    int capacity;
+    int capacity; // Max size of stack
 } Stack;
 
 

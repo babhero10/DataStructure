@@ -5,35 +5,35 @@
 Queue *initQueue()
 {
     Queue *q = (Queue *) malloc(sizeof(Queue));
-    q->dq = newSCDeque();
+    q->dq = newSentSGDeque();
     return q;
 }
 
 void enqueue(Queue *q,TYPE item)
 {
-    insSCTail(q->dq, item);
+    insSentSGTail(q->dq, item);
 }
 
 TYPE dequeue(Queue *q)
 {
-    TYPE temp = getSData(getHeadSCDQ(q->dq));
-    delSCHead(q->dq);
+    TYPE temp = getSData(getHeadSentSGDQ(q->dq));
+    delSentSGHead(q->dq);
     return temp;
 }
 
 TYPE peekFront(Queue *q)
 {
-    return getSData(getHeadSCDQ(q->dq));
+    return getSData(getHeadSentSGDQ(q->dq));
 }
 
 TYPE peekRear(Queue *q)
 {
-    return getSData(getTailSCDQ(q->dq));
+    return getSData(getTailSentSGDQ(q->dq));
 }
 
 TYPE isEmpty(Queue *q)
 {
-    return isEmptySCDQ(q->dq);
+    return isEmptySentSGDQ(q->dq);
 }
 
 void destructQueue(Queue *q)

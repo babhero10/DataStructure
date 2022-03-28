@@ -38,9 +38,10 @@ void showQueue(Queue *q)
     Queue *temp = initQueue();
     while (!isEmpty(q))
     {
-        printf(" %d ", peekFront(q));
+        printf("%d ", peekFront(q));
         enqueue(temp, dequeue(q));
     }
+
     while (!isEmpty(temp))
     {
         enqueue(q, dequeue(temp));

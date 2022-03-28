@@ -20,6 +20,11 @@ typedef struct  {
     DNode *Tail;
 } DCDeque;
 
+typedef struct  {
+    SNode *SentHead;
+    SNode *Tail;
+} SentSGDeque;
+
 // SGLL
 SGDeque* newSGDeque() ;              // O(1)
 SNode * getHeadSGDQ(SGDeque *);      // O(1)
@@ -63,5 +68,16 @@ void delDCHead(DCDeque *) ;          // O(1)
 void delDCTail(DCDeque *) ;          // O(1)  
 DNode *searchDCDQ(DCDeque* ,TYPE );  // O(N)
 int isEmptyDCDQ(DCDeque *);          // O(1)        
+
+// Sentinal SGLL
+SentSGDeque* newSentSGDeque() ;                  // O(1)
+SNode * getHeadSentSGDQ(SentSGDeque *);          // O(1)
+SNode * getTailSentSGDQ(SentSGDeque *);          // O(1)
+void insSentSGHead(SentSGDeque* ,TYPE );         // O(1)   
+void insSentSGTail(SentSGDeque* ,TYPE );         // O(1)   
+void delSentSGHead(SentSGDeque *) ;              // O(1)  
+void delSentSGTail(SentSGDeque *) ;              // O(1)  
+SNode *searchSentSGDQ(SentSGDeque* ,TYPE );      // O(N)
+int isEmptySentSGDQ(SentSGDeque *);              // O(1)     
 
 #endif // DEQUE_H_INCLUDED

@@ -4,7 +4,7 @@
 
 #define TYPE int
 typedef struct  {
-    SCDeque *dq;
+    SentSGDeque *dq;
 } Queue;
 
 Queue *initQueue();

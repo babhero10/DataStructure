@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "LinkedList.h"
 
-///////////////////////// Singly
+/////////////////////////////// Singly
 SNode *newSGNode(TYPE data)
 {
     SNode *newNode = (SNode *) malloc(sizeof(SNode));
@@ -20,7 +20,7 @@ TYPE getSData(SNode *n)
     return n ? n->data : -1;
 }
 
-///////////////////////// Singly Ground LinkedList (SGLL)
+/////////////////////////////// Singly Ground LinkedList (SGLL) ///////////////////////////////
 SNode *searchSGNode(SNode *n, TYPE data)
 {
     SNode *currentNode = n;
@@ -110,7 +110,7 @@ void destructSG(SNode *n)
     }
 }            
 
-///////////////////////// Singly Circular LinkedList (SCLL)
+/////////////////////////////// Singly Circular LinkedList (SCLL) ///////////////////////////////
 SNode *newSCNode(TYPE data)
 {
     SNode *newNode = (SNode *) malloc(sizeof(SNode));
@@ -191,7 +191,7 @@ void   destructSC(SNode *n)
     }
 }         
 
-///////////////////////// Doubly
+/////////////////////////////// Doubly ///////////////////////////////
 DNode *newDGNode(TYPE data) {
     DNode *newNode = (DNode *) malloc(sizeof(DNode));
     newNode->data = data;
@@ -214,7 +214,7 @@ TYPE getDData(DNode *n)
     return n ? n->data : -1;
 }
 
-///////////////////////// Doubly Ground LinkedList (DGLL)
+/////////////////////////////// Doubly Ground LinkedList (DGLL) ///////////////////////////////
 DNode *searchDGNode(DNode *n, TYPE data)
 {
     DNode *currentNode = n;
@@ -297,13 +297,19 @@ DNode *delDGCurrentNode(DNode *n)
     DNode *prevNode = NULL;
     if (n != NULL) // List isn't empty
     {
-        if (getDPre(n)) 
-            n->prev->next = getDNext(n);
-        
-        if (getDNext(n))
+        if (getDNext(n)) 
         {
             n->next->prev = getDPre(n);
             prevNode = getDPre(n);
+        }
+
+        if (getDPre(n)) // Not first node
+        {
+            n->prev->next = getDNext(n);
+        }
+        else
+        {
+            prevNode = n->next; // Return the new first node
         }
 
         free(n);
@@ -350,7 +356,7 @@ void   destructDG(DNode *n)
     }
 }           
 
-///////////////////////// Doubly Ground LinkedList (DCLL)
+/////////////////////////////// Doubly Ground LinkedList (DCLL) ///////////////////////////////
 DNode *newDCNode(TYPE data) {
     DNode *newNode = (DNode *) malloc(sizeof(DNode));
     newNode->data = data;
@@ -421,12 +427,11 @@ DNode *insDCNodeBefore(DNode *n, TYPE data)
     return newNode;
 }   
 
-DNode *delDCCurrentNode(DNode *n)
+DNode *delDCCurrentNode(DNode *n) // return Node before n
 {
     DNode *prevNode = NULL;
     if (n != NULL) // List isn't empty
     {
-       
         n->prev->next = getDNext(n);
         if (getDNext(n) != n)
         {

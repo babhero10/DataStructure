@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "Deque.h"
 
-///////////////////////// SGLL
+/////////////////////////////// SGLL ///////////////////////////////
 SGDeque* newSGDeque()
 {
     SGDeque *dq = (SGDeque *) malloc(sizeof(SGDeque));
@@ -82,10 +82,10 @@ SNode *searchSGDQ(SGDeque *dq, TYPE data)
  
 int isEmptySGDQ(SGDeque *dq)
 {
-    return (dq->Head == NULL) ? 1:0;
+    return (dq->Head == NULL) ? 1 : 0;
 }         
 
-///////////////////////// SCLL
+/////////////////////////////// SCLL ///////////////////////////////
 SCDeque* newSCDeque()
 {
     SCDeque *dq = (SCDeque *) malloc(sizeof(SCDeque));
@@ -140,10 +140,10 @@ SNode *searchSCDQ(SCDeque *dq, TYPE data)
 
 int isEmptySCDQ(SCDeque *dq)
 {
-    return (dq->Tail == NULL) ? 1:0;
+    return (dq->Tail == NULL) ? 1 : 0;
 }
 
-///////////////////////// DGLL
+/////////////////////////////// DGLL ///////////////////////////////
 DGDeque* newDGDeque()
 {
     DGDeque *dq = (DGDeque *) malloc(sizeof(DGDeque));
@@ -151,9 +151,177 @@ DGDeque* newDGDeque()
     dq->Tail = NULL;
 }
 
-///////////////////////// DCLL
+DNode * getHeadDGDQ(DGDeque *dq)
+{
+    return dq->Head;
+}
+
+DNode * getTailDGDQ(DGDeque *dq)
+{
+    return dq->Tail;
+}
+
+void insDGHead(DGDeque *dq, TYPE data)
+{
+    DNode *newNode = newDGNode(data);
+    dq->Head = insDGNodeBefore(dq->Head, data);
+
+    if (dq->Tail == NULL)
+        dq->Tail = dq->Head;
+} 
+
+void insDGTail(DGDeque *dq, TYPE data)
+{
+    DNode *newTail = insDGNodeAfter(dq->Tail, data);
+    dq->Tail = newTail;
+
+    if (dq->Head == NULL)
+        dq->Head = dq->Tail;
+}
+
+void delDGHead(DGDeque *dq)
+{
+    dq->Head = delDGCurrentNode(dq->Head);
+
+    if (dq->Head == NULL)
+         dq->Tail=NULL;
+}
+void delDGTail(DGDeque *dq)
+{
+    dq->Tail = delDGCurrentNode(dq->Tail);
+
+    if (dq->Tail == NULL)
+         dq->Head=NULL;
+}
+
+DNode *searchDGDQ(DGDeque *dq,TYPE data)
+{
+    return searchDGNode(dq->Head, data);
+}
+
+int isEmptyDGDQ(DGDeque *dq)
+{
+    return (dq->Head == NULL) ? 1 : 0;
+}
+
+/////////////////////////////// DCLL ///////////////////////////////
 DCDeque* newDCDeque()
 {
     DCDeque *dq = (DCDeque *) malloc(sizeof(DCDeque));
     dq->Tail = NULL;
+}
+
+DNode * getHeadDCDQ(DCDeque *dq)
+{
+    return dq->Tail->next;
+}
+
+DNode * getTailDCDQ(DCDeque *dq)
+{
+    return dq->Tail;
+}
+
+void insDCHead(DCDeque *dq, TYPE data)
+{
+    DNode *newNode = insDCNodeAfter(dq->Tail, data);
+    if (dq->Tail == NULL)
+    {
+        dq->Tail = newNode;
+    }
+}
+
+void insDCTail(DCDeque *dq, TYPE data)
+{
+    DNode *newNode = insDCNodeAfter(dq->Tail, data);
+    if (dq->Tail != NULL)
+    {
+        dq->Tail = dq->Tail->next;
+    }
+    else
+    {
+        dq->Tail = newNode;
+    }  
+}
+void delDCHead(DCDeque *dq)
+{
+    dq->Tail = delDCNodeAfter(dq->Tail);
+}
+
+void delDCTail(DCDeque *dq)
+{
+    dq->Tail = delDCCurrentNode(dq->Tail);
+}
+
+DNode *searchDCDQ(DCDeque *dq, TYPE data)
+{
+    return searchDCNode(dq->Tail, data);
+}
+int isEmptyDCDQ(DCDeque *dq)
+{
+    return (dq->Tail == NULL) ? 1 : 0;
+}   
+
+/////////////////////////////// Sentinal SGLL ///////////////////////////////
+SentSGDeque *newSentSGDeque()
+{
+    SentSGDeque *dq = (SentSGDeque *) malloc(sizeof(SentSGDeque));
+    dq->SentHead = newSGNode(-1);
+    dq->Tail = NULL;
+    return dq;
+}
+
+SNode *getHeadSentSGDQ(SentSGDeque *dq)
+{
+    return dq->SentHead->next;
+}
+
+SNode *getTailSentSGDQ(SentSGDeque *dq)
+{
+    return dq->Tail;
+}
+
+void insSentSGHead(SentSGDeque *dq, TYPE data)
+{
+    insSGNodeAfter(dq->SentHead, data);
+} 
+
+void insSentSGTail(SentSGDeque *dq, TYPE data)
+{
+    if (dq->Tail != NULL)
+    {
+        dq->Tail = insSGNodeAfter(dq->Tail, data);
+    }
+    else
+    {
+        dq->Tail = insSGNodeAfter(dq->SentHead, data);
+    }
+    
+}  
+
+void delSentSGHead(SentSGDeque *dq)
+{
+    if (dq->SentHead->next != NULL)
+        delSGNodeAfter(dq->SentHead);
+    
+    if (dq->SentHead->next == NULL) // Deque is empty
+        dq->Tail = NULL;
+}
+
+void delSentSGTail(SentSGDeque *dq)
+{
+    if (dq->SentHead->next != NULL)
+        dq->Tail = delSGNodeAfter(getSGPreTail(dq->SentHead));
+        
+    if (dq->SentHead->next == NULL) // Deque is empty
+        dq->Tail = NULL;
+}
+
+SNode *searchSentSGDQ(SentSGDeque *dq, TYPE data)
+{
+    return searchSGNode(dq->SentHead, data);
+}
+
+int isEmptySentSGDQ(SentSGDeque *dq)
+{
+    return (getHeadSentSGDQ(dq) == NULL) ? 1 : 0;
 }

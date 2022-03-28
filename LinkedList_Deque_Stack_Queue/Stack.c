@@ -1,78 +1,37 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "Stack.h"
 
-#define TYPE int // TYPE to change the stack datatype anytime
-
-typedef struct {
-    int top;
-    TYPE *items;
-    int capacity; // Max size of stack
-} Stack;
-
-
-Stack *initStack(int capacity) 
+Stack *initStack() 
 {
     Stack *s = (Stack *) malloc(sizeof(Stack));
-    s->items = (TYPE *) malloc(capacity * sizeof(TYPE));
-    s->top = 0;
-    s->capacity = capacity;
+    s->dq = newSentSGDeque();
+    return s;
 }
 
-void push(TYPE item, Stack *s)
+void push(Stack *s, TYPE item)
 {
-    s->items[s->top++] = item;
-}
-
-void pop(Stack *s)
-{
-    s->top--;
+    insSentSGHead(s->dq, item);
 }
 
 TYPE peek(Stack *s)
 {
-    return s->items[s->top-1];
+    return getSData(getHeadSentSGDQ(s->dq));
 }
 
-TYPE peekPop(Stack *s)
+TYPE pop(Stack *s)
 {
     TYPE temp = peek(s);
-    pop(s);
+    delSentSGHead(s->dq);
     return temp;
 }
 
 int isEmpty(Stack *s)
 {
-    return (s->top == 0) ? 1:0; 
-}
-
-int isFull(Stack *s)
-{
-    return (s->top < s->capacity) ? 0:1; 
+    return isEmptySentSGDQ(s->dq);
 }
 
 void destructStack(Stack *s)
 {
-    free(s->items);
     free(s);
-}
-
-// Extra functions
-int length(Stack *s)
-{
-    return s->top;
-}
-
-void showStack(Stack *s)
-{
-    printf("[ ");
-    for (int i = 0; i < s->top; i++)
-    {
-        printf(" %d ", s->items[i]);
-    }
-    printf(" ]\n");
-}
-
-void freePopped(Stack *s)
-{
-    free(s->items[s->top--]);
 }

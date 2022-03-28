@@ -3,8 +3,8 @@
 #include "Deque.h"
 
 #define TYPE int
-typedef struct  {
-    SentSGDeque *dq;
+typedef struct {
+    DCDeque *dq;
 } Queue;
 
 Queue *initQueue();

@@ -1,69 +1,159 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "Deque.h"
 
-#define TYPE int
-
-typedef struct  
+///////////////////////// SGLL
+SGDeque* newSGDeque()
 {
-    TYPE *items;
-    int front;
-    int rear;
-    int capacity;
-    int size; // The other solution is to use empty 
-} Queue;
-
-Queue *initQueue(int cap)
+    SGDeque *dq = (SGDeque *) malloc(sizeof(SGDeque));
+    dq->Head = NULL;
+    dq->Tail = NULL;
+}
+SNode * getHeadSGDQ(SGDeque *dq)
 {
-    Queue *q = (Queue *) malloc(sizeof(Queue));
-    q->items = (TYPE *) malloc(sizeof(TYPE) * cap);
-    q->capacity = cap;
-    q->front = 0;
-    q->rear = 0;
-    q->size = 0;
+    return dq->Head;
 }
 
-void enqueue(Queue *q,TYPE item)
+SNode * getTailSGDQ(SGDeque *dq)
 {
-    q->items[q->rear++] = item;
-    q->rear %= q->capacity;
-    q->size++;
+    return dq->Tail;
 }
 
-TYPE dequeue(Queue *q)
+void insSGHead(SGDeque *dq, TYPE data)
 {
-    TYPE temp = q->items[q->front];
-    q->front = (q->front + 1) % q->capacity;
-    q->size--;
-    return temp;
+    SNode *newNode = newSGNode(data);
+    newNode->next = dq->Head;
+    dq->Head = newNode;
+    if (getTailSGDQ(dq) == NULL)
+        dq->Tail = dq->Head;
 }
 
-TYPE peekFront(Queue *q)
+void insSGTail(SGDeque *dq, TYPE data)
 {
-    return q->items[q->front];
-}
+    SNode *newTail = insSGNodeAfter(dq->Tail, data);
+    dq->Tail = newTail;
 
-TYPE peekRear(Queue *q)
+    if (getHeadSGDQ(dq) == NULL)
+        dq->Head = dq->Tail;
+}  
+
+void delSGHead(SGDeque *dq)
 {
-    if (q->rear - 1 == -1) // when rear is 0
+    SNode *Head = dq->Head;
+    if(Head == NULL)
     {
-        return q->items[q->capacity - 1];
+        return;
+    }
+    if(Head->next == NULL) // Last element
+    {
+        dq->Head = NULL;
+        dq->Tail = NULL;
+    }
+    else
+    {
+        dq->Head = getSNext(dq->Head);   
     }
 
-    return q->items[q->rear - 1];
+    free(Head);
+} 
+
+void delSGTail(SGDeque *dq)
+{
+    SNode *Head = getHeadSGDQ(dq);
+    if (Head == NULL) 
+    {
+        return;
+    }
+    else if (getSNext(Head) == NULL) // Tail == Head
+    {
+        dq->Head = NULL;
+        dq->Tail = NULL;
+    } 
+    else 
+    {
+        dq->Tail = delSGNodeAfter(getSGPreTail(Head));
+    }
 }
 
-TYPE isFull(Queue *q)
+SNode *searchSGDQ(SGDeque *dq, TYPE data)
 {
-    return q->size == q->capacity;
+    return searchSGNode(dq->Head, data);
+}
+ 
+int isEmptySGDQ(SGDeque *dq)
+{
+    return (dq->Head == NULL) ? 1:0;
+}         
+
+///////////////////////// SCLL
+SCDeque* newSCDeque()
+{
+    SCDeque *dq = (SCDeque *) malloc(sizeof(SCDeque));
+    dq->Tail = NULL;
 }
 
-TYPE isEmpty(Queue *q)
+SNode * getHeadSCDQ(SCDeque *dq)
 {
-    return (q->size == 0) ? 1 : 0;
+    return getSNext(dq->Tail);
+}
+SNode * getTailSCDQ(SCDeque *dq)
+{
+    return dq->Tail;
 }
 
-void destructQueue(Queue *q)
+void insSCHead(SCDeque *dq,TYPE data)
 {
-    free(q->items);
-    free(q);
+    SNode *newNode = insSCNodeAfter(dq->Tail, data);
+    if (dq->Tail == NULL)
+    {
+        dq->Tail = newNode;
+    }
+} 
+
+void insSCTail(SCDeque *dq, TYPE data)
+{
+    SNode *newNode = insSCNodeAfter(dq->Tail, data);
+
+    if (dq->Tail != NULL)
+    {
+        dq->Tail = dq->Tail->next;
+    }
+    else
+    {
+        dq->Tail = newNode;
+    }        
+}
+void delSCHead(SCDeque * dq)
+{
+    dq->Tail = delSCNodeAfter(dq->Tail);
+} 
+
+void delSCTail(SCDeque *dq)
+{
+    dq->Tail = delSCNodeAfter(getSCPreNode(dq->Tail));
+}
+
+SNode *searchSCDQ(SCDeque *dq, TYPE data)
+{
+    return searchSCNode(dq->Tail, data);
+}
+
+int isEmptySCDQ(SCDeque *dq)
+{
+    return (dq->Tail == NULL) ? 1:0;
+}
+
+///////////////////////// DGLL
+DGDeque* newDGDeque()
+{
+    DGDeque *dq = (DGDeque *) malloc(sizeof(DGDeque));
+    dq->Head = NULL;
+    dq->Tail = NULL;
+}
+
+///////////////////////// DCLL
+DCDeque* newDCDeque()
+{
+    DCDeque *dq = (DCDeque *) malloc(sizeof(DCDeque));
+    dq->Tail = NULL;
 }

@@ -1,17 +1,17 @@
 #ifndef QUEUE_H_INCLUDED
 #define QUEUE_H_INCLUDED
+#include "Deque.h"
 
 #define TYPE int
 typedef struct  {
-
+    SCDeque *dq;
 } Queue;
 
-Queue *initQueue(int);
+Queue *initQueue();
 void enqueue(Queue *,TYPE );
 TYPE dequeue(Queue *);
 TYPE peekFront(Queue *);
 TYPE peekRear(Queue *);
-TYPE isFull(Queue *);
 TYPE isEmpty(Queue *);
 void destructQueue(Queue *);
 

@@ -1,40 +1,52 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "LinkedList.h"
+#include "Queue.h"
 
-// int main()
-// {
-//     DNode *n = NULL;
-//     DNode *f = insDGNodeAfter(n, 1);
-//     n = f;
-//     for (int i = 2; i <= 10; i++)
-//     {
-//         n = insDGNodeAfter(n, i);        
-//     }
-//     DNode *n1 = getDGTail(f);
-//     DNode *n2 = getDGPreTail(f);
-//     for (int i = 0; i <= 12; i++)
-//     {       
-//         printf("%d %d %d\n", getDData(n1), getDData(n2), getDData(searchDGNode(f, i)));
-//     }
-    
-//     destructDG(n);
-// }
+#define SIZE 10
+
+void showQueue(Queue *q);
 
 int main()
 {
-    DNode *n = NULL;
-    DNode *f = insDCNodeAfter(n, 1);
-    n = f;
-    for (int i = 1; i <= 10; i++)
-    {
-        n = insDCNodeAfter(n, i);        
-    }
-    // delDCCurrentNode(f);
-    for (int i = 0; i <= 12; i++)
-    {       
-        printf("%d %d\n", getDData(getDCPreNode(f)), getDData(searchDCNode(f, i)));
-    }
+    Queue *q = initQueue();
+    int i = 1;
     
-    destructDC(n);
+    printf("is empty: %d\n", isEmpty(q));
+
+    while (i <= 10)
+    {
+        enqueue(q, i);
+        i+=1;
+    }
+
+    printf("is empty: %d\n", isEmpty(q));
+    printf("front: %d\nrear: %d\n", peekFront(q), peekRear(q));
+    dequeue(q);
+    printf("front: %d\nrear: %d\n", peekFront(q), peekRear(q));
+
+    printf("Show: ");
+    showQueue(q);
+    printf("is empty: %d\n", isEmpty(q));
+
+
+    destructQueue(q);
+    return 0;
+}
+
+void showQueue(Queue *q)
+{
+    Queue *temp = initQueue();
+    while (!isEmpty(q))
+    {
+        printf(" %d ", peekFront(q));
+        enqueue(temp, dequeue(q));
+    }
+    while (!isEmpty(temp))
+    {
+        enqueue(q, dequeue(temp));
+    }
+
+    printf("\n");
+
+    destructQueue(temp);
 }

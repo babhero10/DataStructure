@@ -1,69 +1,42 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "Queue.h"
 
-#define TYPE int
-
-typedef struct  
-{
-    TYPE *items;
-    int front;
-    int rear;
-    int capacity;
-    int size; // The other solution is to use empty 
-} Queue;
-
-Queue *initQueue(int cap)
+Queue *initQueue()
 {
     Queue *q = (Queue *) malloc(sizeof(Queue));
-    q->items = (TYPE *) malloc(sizeof(TYPE) * cap);
-    q->capacity = cap;
-    q->front = 0;
-    q->rear = 0;
-    q->size = 0;
+    q->dq = newSCDeque();
+    return q;
 }
 
 void enqueue(Queue *q,TYPE item)
 {
-    q->items[q->rear++] = item;
-    q->rear %= q->capacity;
-    q->size++;
+    insSCTail(q->dq, item);
 }
 
 TYPE dequeue(Queue *q)
 {
-    TYPE temp = q->items[q->front];
-    q->front = (q->front + 1) % q->capacity;
-    q->size--;
+    TYPE temp = getSData(getHeadSCDQ(q->dq));
+    delSCHead(q->dq);
     return temp;
 }
 
 TYPE peekFront(Queue *q)
 {
-    return q->items[q->front];
+    return getSData(getHeadSCDQ(q->dq));
 }
 
 TYPE peekRear(Queue *q)
 {
-    if (q->rear - 1 == -1) // when rear is 0
-    {
-        return q->items[q->capacity - 1];
-    }
-
-    return q->items[q->rear - 1];
-}
-
-TYPE isFull(Queue *q)
-{
-    return q->size == q->capacity;
+    return getSData(getTailSCDQ(q->dq));
 }
 
 TYPE isEmpty(Queue *q)
 {
-    return (q->size == 0) ? 1 : 0;
+    return isEmptySCDQ(q->dq);
 }
 
 void destructQueue(Queue *q)
 {
-    free(q->items);
     free(q);
 }

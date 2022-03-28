@@ -10,6 +10,7 @@ SGDeque* newSGDeque()
     dq->Tail = NULL;
     return dq;
 }
+
 SNode * getHeadSGDQ(SGDeque *dq)
 {
     return dq->Head;
@@ -104,6 +105,7 @@ SNode * getHeadSCDQ(SCDeque *dq)
 {
     return getSNext(dq->Tail);
 }
+
 SNode * getTailSCDQ(SCDeque *dq)
 {
     return dq->Tail;
@@ -131,6 +133,7 @@ void insSCTail(SCDeque *dq, TYPE data)
         dq->Tail = newNode;
     }        
 }
+
 void delSCHead(SCDeque * dq)
 {
     dq->Tail = delSCNodeAfter(dq->Tail);
@@ -201,6 +204,7 @@ void delDGHead(DGDeque *dq)
     if (dq->Head == NULL)
          dq->Tail=NULL;
 }
+
 void delDGTail(DGDeque *dq)
 {
     dq->Tail = delDGCurrentNode(dq->Tail);
@@ -264,6 +268,7 @@ void insDCTail(DCDeque *dq, TYPE data)
         dq->Tail = newNode;
     }  
 }
+
 void delDCHead(DCDeque *dq)
 {
     dq->Tail = delDCNodeAfter(dq->Tail);
@@ -278,6 +283,7 @@ DNode *searchDCDQ(DCDeque *dq, TYPE data)
 {
     return searchDCNode(dq->Tail, data);
 }
+
 int isEmptyDCDQ(DCDeque *dq)
 {
     return (dq->Tail == NULL) ? 1 : 0;

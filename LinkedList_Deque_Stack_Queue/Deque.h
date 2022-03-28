@@ -16,6 +16,7 @@ typedef struct  {
     DNode *Head;
     DNode *Tail;
 } DGDeque;
+
 typedef struct  {
     DNode *Tail;
 } DCDeque;

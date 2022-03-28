@@ -3,13 +3,6 @@
 #include "LinkedList.h"
 
 /////////////////////////////// Singly
-SNode *newSGNode(TYPE data)
-{
-    SNode *newNode = (SNode *) malloc(sizeof(SNode));
-    newNode->data = data;
-    newNode->next = NULL;
-}
-
 SNode *getSNext(SNode *n)
 {
     return n?n->next:n;
@@ -21,6 +14,14 @@ TYPE getSData(SNode *n)
 }
 
 /////////////////////////////// Singly Ground LinkedList (SGLL) ///////////////////////////////
+SNode *newSGNode(TYPE data)
+{
+    SNode *newNode = (SNode *) malloc(sizeof(SNode));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
 SNode *searchSGNode(SNode *n, TYPE data)
 {
     SNode *currentNode = n;
@@ -116,6 +117,7 @@ SNode *newSCNode(TYPE data)
     SNode *newNode = (SNode *) malloc(sizeof(SNode));
     newNode->data = data;
     newNode->next = newNode;
+    return newNode;
 }
 
 SNode *searchSCNode(SNode *n,TYPE data)
@@ -186,19 +188,12 @@ void   destructSC(SNode *n)
     if (n != NULL) // List not empty
     {
         while (start != getSNext(n)) // Delete next until no more to delete
-            delSGNodeAfter(n);
+            delSCNodeAfter(n);
         free(start); // Free last node
     }
 }         
 
 /////////////////////////////// Doubly ///////////////////////////////
-DNode *newDGNode(TYPE data) {
-    DNode *newNode = (DNode *) malloc(sizeof(DNode));
-    newNode->data = data;
-    newNode->next = NULL;
-    newNode->prev = NULL;
-}
-
 DNode *getDNext(DNode *n)
 {
     return n?n->next:n;
@@ -215,6 +210,14 @@ TYPE getDData(DNode *n)
 }
 
 /////////////////////////////// Doubly Ground LinkedList (DGLL) ///////////////////////////////
+DNode *newDGNode(TYPE data) {
+    DNode *newNode = (DNode *) malloc(sizeof(DNode));
+    newNode->data = data;
+    newNode->next = NULL;
+    newNode->prev = NULL;
+    return newNode;
+}
+
 DNode *searchDGNode(DNode *n, TYPE data)
 {
     DNode *currentNode = n;
@@ -241,18 +244,14 @@ DNode *searchDGRec(DNode *n, TYPE data)
 DNode *insDGNodeAfter(DNode *n,TYPE data)
 {
     DNode *newNode = newDGNode(data);
-
     if (n != NULL) // Not First node
     {
         newNode->next = getDNext(n);
-        newNode->prev = n;
-        
+        newNode->prev = n;   
         if (n->next) 
-            n->next->prev = newNode;
-        
+            n->next->prev = newNode; 
         n->next = newNode;
-    }
-        
+    } 
     return newNode;
 }  
 
@@ -265,30 +264,25 @@ DNode *delDGNodeAfter(DNode *n)
         {
             if(nextNode->next) 
                 nextNode->next->prev = n;
-            
             n->next = getDNext(nextNode);
             free(nextNode);
         }
     }
-
     return n; 
 }   
       
 DNode *insDGNodeBefore(DNode *n, TYPE data)
 {
     DNode *newNode = newDGNode(data);
-
     if (n != NULL) // Not First node
     {
         newNode->prev = getDPre(n);
         newNode->next = n;
-        
         if (n->prev)
             n->prev->next = newNode;
         
         n->prev = newNode;
-    }
-        
+    }     
     return newNode;
 }   
 
@@ -314,7 +308,6 @@ DNode *delDGCurrentNode(DNode *n)
 
         free(n);
     }
-
     return prevNode; 
 }   
 
@@ -362,6 +355,7 @@ DNode *newDCNode(TYPE data) {
     newNode->data = data;
     newNode->next = newNode;
     newNode->prev = newNode;
+    return newNode;
 }
 
 DNode *searchDCNode(DNode *n, TYPE data)
@@ -442,10 +436,8 @@ DNode *delDCCurrentNode(DNode *n) // return Node before n
         {
             prevNode = NULL;
         }
-
         free(n);
     }
-
     return prevNode; 
 }
 
@@ -471,7 +463,7 @@ void   destructDC(DNode *n)
     if (n != NULL) // List not empty
     {
         while (getDNext(n) != start) // Delete next until no more to delete
-            delDGNodeAfter(n);
+            delDCNodeAfter(n);
         free(start); // Free head
     }
 }              

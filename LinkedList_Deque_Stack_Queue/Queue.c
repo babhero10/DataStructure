@@ -38,5 +38,6 @@ TYPE isEmpty(Queue *q)
 
 void destructQueue(Queue *q)
 {
+    destructDCDQ(q->dq);
     free(q);
 }

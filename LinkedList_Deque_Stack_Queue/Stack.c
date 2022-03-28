@@ -33,5 +33,6 @@ int isEmpty(Stack *s)
 
 void destructStack(Stack *s)
 {
+    destructSentSGDQ(s->dq);
     free(s);
 }

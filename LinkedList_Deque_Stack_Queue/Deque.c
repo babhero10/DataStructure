@@ -84,7 +84,13 @@ SNode *searchSGDQ(SGDeque *dq, TYPE data)
 int isEmptySGDQ(SGDeque *dq)
 {
     return (dq->Head == NULL) ? 1 : 0;
-}         
+}    
+
+void destructSGDQ(SGDeque *dq)
+{
+    destructSG(dq->Head);
+    free(dq);
+}
 
 /////////////////////////////// SCLL ///////////////////////////////
 SCDeque* newSCDeque()
@@ -143,6 +149,12 @@ SNode *searchSCDQ(SCDeque *dq, TYPE data)
 int isEmptySCDQ(SCDeque *dq)
 {
     return (dq->Tail == NULL) ? 1 : 0;
+}
+
+void destructSCDQ(SCDeque *dq)
+{
+    destructSC(dq->Tail);
+    free(dq);
 }
 
 /////////////////////////////// DGLL ///////////////////////////////
@@ -207,6 +219,12 @@ int isEmptyDGDQ(DGDeque *dq)
     return (dq->Head == NULL) ? 1 : 0;
 }
 
+void destructDGDQ(DGDeque *dq)
+{
+    destructDG(dq->Head);
+    free(dq);
+}
+
 /////////////////////////////// DCLL ///////////////////////////////
 DCDeque* newDCDeque()
 {
@@ -264,6 +282,12 @@ int isEmptyDCDQ(DCDeque *dq)
 {
     return (dq->Tail == NULL) ? 1 : 0;
 }   
+
+void destructDCDQ(DCDeque *dq)
+{
+    destructDC(dq->Tail);
+    free(dq);
+}
 
 /////////////////////////////// Sentinal SGLL ///////////////////////////////
 SentSGDeque *newSentSGDeque()
@@ -328,4 +352,10 @@ SNode *searchSentSGDQ(SentSGDeque *dq, TYPE data)
 int isEmptySentSGDQ(SentSGDeque *dq)
 {
     return (getHeadSentSGDQ(dq) == NULL) ? 1 : 0;
+}
+
+void destructSentSGDQ(SentSGDeque *dq)
+{
+    destructSentSG(dq->SentHead);
+    free(dq);
 }

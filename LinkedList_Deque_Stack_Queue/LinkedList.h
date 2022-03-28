@@ -14,10 +14,11 @@ typedef struct DNode {
 } DNode;
 
 // Singly
-SNode *getSNext(SNode *);
-TYPE getSData(SNode *);
+SNode *getSNext(SNode *);                 // O(1)
+TYPE getSData(SNode *);                   // O(1)
+
 // SGLL
-SNode *newSGNode(TYPE);
+SNode *newSGNode(TYPE);                   // O(1)
 SNode *searchSGNode(SNode *,TYPE);        // O(N)
 SNode *searchSGRec(SNode *,TYPE) ;        // O(N)
 SNode *insSGNodeAfter(SNode *,TYPE) ;     // O(1)
@@ -27,7 +28,7 @@ SNode *getSGPreTail(SNode *);             // O(N)
 void   destructSG(SNode *);               // O(N)
 
 // SCLL
-SNode *newSCNode(TYPE);
+SNode *newSCNode(TYPE);                   // O(1)
 SNode *searchSCNode(SNode *,TYPE);        // O(N)
 SNode *searchSCRec(SNode *,TYPE) ;        // O(N)
 SNode *insSCNodeAfter(SNode *,TYPE) ;     // O(1)
@@ -36,12 +37,12 @@ SNode *getSCPreNode(SNode *) ;            // O(N)
 void   destructSC(SNode *);               // O(N)
 
 // Doubly
-DNode *getDNext(DNode *);
-DNode *getDPre(DNode *);
-TYPE  getDData(DNode *);
+DNode *getDNext(DNode *);                 // O(1)
+DNode *getDPre(DNode *);                  // O(1)
+TYPE  getDData(DNode *);                  // O(1)
 
 // DGLL
-DNode *newDGNode(TYPE);
+DNode *newDGNode(TYPE);                   // O(1)
 DNode *searchDGNode(DNode *,TYPE);        // O(N)
 DNode *searchDGRec(DNode *,TYPE) ;        // O(N)
 DNode *insDGNodeAfter(DNode *,TYPE) ;     // O(1)
@@ -53,7 +54,7 @@ DNode *delDGCurrentNode(DNode *);         // O(1) -- New
 void   destructDG(DNode *);               // O(N)
 
 // DCLL
-DNode *newDCNode(TYPE);
+DNode *newDCNode(TYPE);                   // O(1)
 DNode *searchDCNode(DNode *,TYPE);        // O(N)
 DNode *searchDCRec(DNode *,TYPE) ;        // O(N)
 DNode *insDCNodeAfter(DNode *,TYPE) ;     // O(1)

@@ -8,6 +8,7 @@ SGDeque* newSGDeque()
     SGDeque *dq = (SGDeque *) malloc(sizeof(SGDeque));
     dq->Head = NULL;
     dq->Tail = NULL;
+    return dq;
 }
 SNode * getHeadSGDQ(SGDeque *dq)
 {
@@ -90,6 +91,7 @@ SCDeque* newSCDeque()
 {
     SCDeque *dq = (SCDeque *) malloc(sizeof(SCDeque));
     dq->Tail = NULL;
+    return dq;
 }
 
 SNode * getHeadSCDQ(SCDeque *dq)
@@ -144,11 +146,12 @@ int isEmptySCDQ(SCDeque *dq)
 }
 
 /////////////////////////////// DGLL ///////////////////////////////
-DGDeque* newDGDeque()
+DGDeque *newDGDeque()
 {
     DGDeque *dq = (DGDeque *) malloc(sizeof(DGDeque));
     dq->Head = NULL;
     dq->Tail = NULL;
+    return dq;
 }
 
 DNode * getHeadDGDQ(DGDeque *dq)
@@ -209,6 +212,7 @@ DCDeque* newDCDeque()
 {
     DCDeque *dq = (DCDeque *) malloc(sizeof(DCDeque));
     dq->Tail = NULL;
+    return dq;
 }
 
 DNode * getHeadDCDQ(DCDeque *dq)

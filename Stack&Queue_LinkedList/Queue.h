@@ -1,7 +1,7 @@
 #ifndef QUEUE_H_INCLUDED
 #define QUEUE_H_INCLUDED
 
-#define TYPE int // TYPE to change the stack datatype anytime
+#define TYPE int // TYPE to change the queue datatype anytime
 
 typedef struct node
 {

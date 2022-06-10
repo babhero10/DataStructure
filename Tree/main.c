@@ -15,6 +15,8 @@ int main()
     printf("%p\n", search(root, 11));
     inOrder(root);
     printf("\n");
+    printf("successor for 20: %d, Predeseccor for 20: %d", inorderSuccessor(root, 20)->value, inorderPredecessor(root, 20)->value);
+    printf("\n");
     preOreder(root);
     printf("\n");
     postOrder(root);

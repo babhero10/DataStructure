@@ -82,19 +82,19 @@ node *findMax(node *root)
     }
 }
 
-void *inorderSuccessor(node *root, int value)
+node *inorderSuccessor(node *root, int value)
 {
     node *successor = NULL;
     node *n = root;
     while (n->value != value)
     {
         if (n == NULL) return NULL; // Node not found!
-        else if (n->value < value)
+        else if (n->value > value)
         {
             successor = n;
             n = n->left;
         }
-        else if (n->value > value)
+        else if (n->value < value)
         {
             n = n->right;
         }
@@ -108,18 +108,18 @@ void *inorderSuccessor(node *root, int value)
     return successor;
 }
 
-void *inorderPredecessor(node *root, int value)
+node *inorderPredecessor(node *root, int value)
 {
     node *predecessor = NULL;
     node *n = root;
     while (n->value != value)
     {
         if (n == NULL) return NULL; // Node not found!
-        else if (n->value < value)
+        else if (n->value > value)
         { 
             n = n->left;
         }
-        else if (n->value > value)
+        else if (n->value < value)
         {
             predecessor = n;
             n = n->right;

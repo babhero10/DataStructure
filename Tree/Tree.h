@@ -13,8 +13,8 @@ void postOrder(node* );
 void preOreder(node* );
 node *findMin(node* );
 node *findMax(node* );
-void *inorderSuccessor(node*, int);
-void *inorderPredecessor(node*, int);
+node *inorderSuccessor(node*, int);
+node *inorderPredecessor(node*, int);
 void *deleteNode(node*, int);
 void destructTree(node* );
 
